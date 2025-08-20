@@ -6,7 +6,7 @@ class_name Player
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var debug: Label = $Debug
-
+@onready var shooter: Shooter = $Shooter
 
 const GRAVITY: float = 690.0
 const JUMP_SPEED: float = -270.0
@@ -21,9 +21,10 @@ func _ready() -> void:
 func _enter_tree() -> void:
 	add_to_group(Constants.PLAYER_GROUP)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
-#	pass
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("shoot"):
+		var dir: Vector2 = Vector2.LEFT if sprite_2d.flip_h else Vector2.RIGHT
+		shooter.shoot(dir)
 
 # Logica fisica, movimento con collisioni
 # ndipendente dal frame rate → anche se il gioco cala a 30 FPS, _physics_process() continua a girare a 60 chiamate/sec.

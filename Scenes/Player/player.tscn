@@ -1,12 +1,12 @@
-[gd_scene load_steps=28 format=3 uid="uid://cubhftbm5irkh"]
+[gd_scene load_steps=30 format=3 uid="uid://cubhftbm5irkh"]
 
 [ext_resource type="Script" uid="uid://cobgfla7ydo27" path="res://Scenes/Player/player.gd" id="1_a3d8c"]
 [ext_resource type="Texture2D" uid="uid://ln0qutwuswjy" path="res://assets/player/player.png" id="1_uvnfx"]
 [ext_resource type="PackedScene" uid="uid://ivccuhdwa2ph" path="res://Scenes/Camera/player_camera.tscn" id="3_xpcdj"]
+[ext_resource type="PackedScene" uid="uid://c3jmlubtld6ox" path="res://Scenes/Shooter/shooter.tscn" id="4_mtuoh"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uvnfx"]
-radius = 8.0
-height = 22.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_htcer"]
+size = Vector2(14, 15.5)
 
 [sub_resource type="Animation" id="Animation_mtuoh"]
 length = 0.001
@@ -19,7 +19,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [13]
 }
 
@@ -36,7 +36,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [18]
 }
 
@@ -54,7 +54,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
+"update": 0,
 "values": [11, 12]
 }
 
@@ -72,7 +72,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [13, 14, 15, 16]
 }
 
@@ -89,7 +89,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
+"update": 0,
 "values": [17]
 }
 
@@ -107,7 +107,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [0, 2, 3, 4, 5]
 }
 
@@ -189,18 +189,22 @@ states/grounded/position = Vector2(403, 100)
 transitions = ["Start", "grounded", SubResource("AnimationNodeStateMachineTransition_74mp2"), "grounded", "air", SubResource("AnimationNodeStateMachineTransition_oikmp"), "air", "grounded", SubResource("AnimationNodeStateMachineTransition_7g0yx")]
 graph_offset = Vector2(0, 10.3142)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mtuoh"]
+size = Vector2(13.5, 15.5)
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource("1_a3d8c")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
 texture = ExtResource("1_uvnfx")
 hframes = 19
 frame = 13
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 5)
-shape = SubResource("CapsuleShape2D_uvnfx")
+position = Vector2(1, 4)
+shape = SubResource("RectangleShape2D_htcer")
 
 [node name="PlayerCamera" parent="." instance=ExtResource("3_xpcdj")]
 
@@ -216,13 +220,26 @@ advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="Debug" type="Label" parent="."]
-offset_left = -29.0
-offset_top = -76.0
-offset_right = 343.0
-offset_bottom = 229.0
+offset_left = -28.0
+offset_top = -93.0
+offset_right = 344.0
+offset_bottom = 212.0
 scale = Vector2(0.282071, 0.281104)
 theme_override_font_sizes/font_size = 54
 text = "test
 debug
 test
 "
+
+[node name="Shooter" parent="." instance=ExtResource("4_mtuoh")]
+position = Vector2(0, -25)
+scale = Vector2(0.5, 0.5)
+speed = 100.0
+shoot_delay = 0.1
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(1, 4)
+shape = SubResource("RectangleShape2D_mtuoh")
