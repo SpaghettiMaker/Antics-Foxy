@@ -28,6 +28,11 @@ func shoot(direction: Vector2) -> void:
 		bullet_key
 	)
 	shoot_timer.start()
+	shoot_audio.play()
+	
 
 func _on_timer_timeout() -> void:
 	_can_shoot = true
+
+func _on_audio_stream_player_2d_finished() -> void:
+	pass # Replace with function body.

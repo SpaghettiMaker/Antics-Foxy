@@ -1,0 +1,82 @@
+[gd_scene load_steps=14 format=3 uid="uid://bv5q0b1yj01dc"]
+
+[ext_resource type="Texture2D" uid="uid://cny01r1convva" path="res://assets/explosion/enemy-deadth.png" id="1_2ggfy"]
+[ext_resource type="Script" uid="uid://cc2605djugdih" path="res://Scenes/Explosion/explosion.gd" id="2_lmd2f"]
+[ext_resource type="AudioStream" uid="uid://bj37ph78knbgl" path="res://assets/sound/pickup3.ogg" id="3_hifdq"]
+[ext_resource type="AudioStream" uid="uid://d0tutosk1peo0" path="res://assets/sound/pickup5.ogg" id="4_iv5xg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hifdq"]
+atlas = ExtResource("1_2ggfy")
+region = Rect2(0, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iv5xg"]
+atlas = ExtResource("1_2ggfy")
+region = Rect2(40, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aupps"]
+atlas = ExtResource("1_2ggfy")
+region = Rect2(80, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqorn"]
+atlas = ExtResource("1_2ggfy")
+region = Rect2(120, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgcuc"]
+atlas = ExtResource("1_2ggfy")
+region = Rect2(160, 0, 40, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fus3a"]
+atlas = ExtResource("1_2ggfy")
+region = Rect2(200, 0, 40, 41)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f2hwj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hifdq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iv5xg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aupps")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jqorn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgcuc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fus3a")
+}],
+"loop": false,
+"name": &"boom",
+"speed": 8.0
+}]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_aupps"]
+streams_count = 2
+stream_0/stream = ExtResource("3_hifdq")
+stream_1/stream = ExtResource("4_iv5xg")
+
+[sub_resource type="GDScript" id="GDScript_2ggfy"]
+script/source = "extends AudioStreamPlayer2D
+
+class_name Explosion
+"
+
+[node name="Explosion" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_f2hwj")
+animation = &"boom"
+autoplay = "boom"
+frame = 5
+frame_progress = 1.0
+script = ExtResource("2_lmd2f")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_aupps")
+script = SubResource("GDScript_2ggfy")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]

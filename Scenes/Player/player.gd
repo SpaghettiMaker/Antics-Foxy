@@ -7,7 +7,7 @@ class_name Player
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var debug: Label = $Debug
 @onready var shooter: Shooter = $Shooter
-
+@onready var audio_jump: AudioStreamPlayer2D = $AudioJump
 const GRAVITY: float = 690.0
 const JUMP_SPEED: float = -270.0
 const MAX_SPEED: float = 350
@@ -33,6 +33,7 @@ func _physics_process(delta: float) -> void:
 	
 	if is_on_floor() and Input.is_action_just_pressed("jump") == true:
 		velocity.y += JUMP_SPEED
+		audio_jump.play()
 	if is_equal_approx(velocity.x, 0) == false:
 		sprite_2d.flip_h = velocity.x < 0
 	velocity.x = RUN_SPEED * Input.get_axis("move_left", "move_right")

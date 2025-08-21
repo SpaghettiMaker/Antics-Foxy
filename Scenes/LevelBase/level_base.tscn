@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=4 uid="uid://buua8r64od3jj"]
+[gd_scene load_steps=9 format=4 uid="uid://buua8r64od3jj"]
 
 [ext_resource type="Script" uid="uid://cfix0ewujo06r" path="res://Scenes/LevelBase/level_base.gd" id="1_2wk6i"]
 [ext_resource type="Texture2D" uid="uid://clb8fpqg06e60" path="res://assets/tiles/Terrain (16x16).png" id="1_fe7a1"]
 [ext_resource type="PackedScene" uid="uid://cubhftbm5irkh" path="res://Scenes/Player/player.tscn" id="2_1l5ts"]
 [ext_resource type="PackedScene" uid="uid://5b8imyscbxln" path="res://Scenes/ObjectMaker/object_maker.tscn" id="5_kkf17"]
+[ext_resource type="PackedScene" uid="uid://budpv2jhdj3mo" path="res://Scenes/Mobs/Snail/snail.tscn" id="5_pyubc"]
+[ext_resource type="AudioStream" uid="uid://c02hgrcshhgba" path="res://assets/sound/Flowing Rocks.ogg" id="6_pyubc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1l5ts"]
 resource_name = "Platforms"
@@ -222,4 +224,11 @@ tile_set = SubResource("TileSet_2wk6i")
 position = Vector2(16, 25)
 
 [node name="Player" parent="." instance=ExtResource("2_1l5ts")]
-position = Vector2(656, 657)
+position = Vector2(586, 746)
+
+[node name="Snail" parent="." instance=ExtResource("5_pyubc")]
+position = Vector2(697, 747)
+
+[node name="audio_level_background" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_pyubc")
+autoplay = true

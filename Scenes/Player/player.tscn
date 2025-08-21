@@ -1,9 +1,10 @@
-[gd_scene load_steps=30 format=3 uid="uid://cubhftbm5irkh"]
+[gd_scene load_steps=31 format=3 uid="uid://cubhftbm5irkh"]
 
 [ext_resource type="Script" uid="uid://cobgfla7ydo27" path="res://Scenes/Player/player.gd" id="1_a3d8c"]
 [ext_resource type="Texture2D" uid="uid://ln0qutwuswjy" path="res://assets/player/player.png" id="1_uvnfx"]
 [ext_resource type="PackedScene" uid="uid://ivccuhdwa2ph" path="res://Scenes/Camera/player_camera.tscn" id="3_xpcdj"]
 [ext_resource type="PackedScene" uid="uid://c3jmlubtld6ox" path="res://Scenes/Shooter/shooter.tscn" id="4_mtuoh"]
+[ext_resource type="AudioStream" uid="uid://ctlvo3q6llc8t" path="res://assets/sound/jump.wav" id="5_htcer"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_htcer"]
 size = Vector2(14, 15.5)
@@ -232,9 +233,9 @@ test
 "
 
 [node name="Shooter" parent="." instance=ExtResource("4_mtuoh")]
-position = Vector2(0, -25)
+position = Vector2(-12, -25)
 scale = Vector2(0.5, 0.5)
-speed = 100.0
+speed = 200.0
 shoot_delay = 0.1
 
 [node name="HitBox" type="Area2D" parent="."]
@@ -243,3 +244,6 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(1, 4)
 shape = SubResource("RectangleShape2D_mtuoh")
+
+[node name="AudioJump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_htcer")
